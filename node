@@ -45,6 +45,7 @@ if [ ! -x $__NODE_PATH/bin/node ]; then
   $__NODE_PATH/bin/node --version
 fi
 
+# These variable is required in order to load binaries & library from different path.
 export LD_LIBRARY_PATH=$__NODE_PATH/lib:$LD_LIBRARY_PATH
 export PATH=$__NODE_PATH/bin:$PATH
 
