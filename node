@@ -10,7 +10,7 @@ if [ $(uname -m) != "x86_64" ]; then
   exit 6
 fi
 
-if [ ! $TMPDIR ]; then
+if [ ! -d $TMPDIR ]; then
   export TMPDIR=$TMPDIR
 fi
 
