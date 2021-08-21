@@ -14,7 +14,10 @@ if [ ! "$TMPDIR" ]; then
   export TMPDIR=/tmp
 fi
 
-export DOWNLOAD_URL="https://nodejs.org/dist/v16.7.0/node-v16.7.0-linux-x64.tar.xz"
+# Get latest release from nodejs repo
+# Referenced at: https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c#gistcomment-2552690
+export LATEST_RELEASE=$(curl --silent "https://api.github.com/repos/nodejs/node/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
+export DOWNLOAD_URL="https://nodejs.org/dist/${LATEST_RELEASE}/node-${LATEST_RELEASE}-linux-x64.tar.xz"
 export __NODE_PATH=$(echo $TMPDIR/node-*/)
 
 # Detect whenever node 16 binary is in $TMPDIR directory or no
