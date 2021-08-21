@@ -1,0 +1,21 @@
+{
+  "name": "nodejs-launcher",
+  "version": "1.0.0",
+  "description": "A simple nodejs launcher that executes a latest nodejs binary",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node index.js"
+  },
+  "keywords": [],
+  "author": "Yonle",
+  "license": "GNU-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yonle/nodejs-launcher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Yonle/nodejs-launcher/issues"
+  },
+  "homepage": "https://github.com/Yonle/nodejs-launcher#readme"
+}

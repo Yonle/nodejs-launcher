@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# nodejs-launcher - https://github.com/Yonle/nodejs-launcher
+# A simple nodejs launcher that executes a latest nodejs binary
+
+# Note: Only x64 is supported
+
+if [ $(uname -m) != "x86_64" ]; then
+  echo "Sorry. This project only supports x86_64 platform."
+  exit 6
+fi
+
+if [ ! $TMPDIR ]; then
+  export TMPDIR=$TMPDIR
+fi
+
+export DOWNLOAD_URL="https://nodejs.org/dist/v16.7.0/node-v16.7.0-linux-x64.tar.xz"
+export __NODE_PATH=$(echo $TMPDIR/node-*/)
+
+# Detect whenever node 16 binary is in $TMPDIR directory or no
+if [ ! -x $__NODE_PATH/bin/node ]; then
+  echo "[curl] Downloading node v16.7.... "
+  curl -L#o $TMPDIR/node.tar.xz $DOWNLOAD_URL
+  # Extract the archive
+  echo -n "[tar] Extracting...."
+  tar -xf $TMPDIR/node.tar.xz -C $TMPDIR && rm $TMPDIR/node.tar.xz
+  echo "Done"
+  # Re-export Variable
+  export __NODE_PATH=$(echo $TMPDIR/node-*/)
+fi
+
+export LD_LIBRARY_PATH=$__NODE_PATH/lib:$LD_LIBRARY_PATH
+export PATH=$__NODE_PATH/bin:$PATH
+
+# Run Node command
+node $@
