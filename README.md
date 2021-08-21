@@ -12,7 +12,7 @@ A simple nodejs launcher that executes a latest nodejs binary
 * [libcurl](https://curl.se/libcurl) installed with `curl` binary
 
 ## Installing
-```bash
+```sh
 curl -L#O https://raw.githubusercontent.com/Yonle/nodejs-launcher/master/node
 chmod +x node
 
