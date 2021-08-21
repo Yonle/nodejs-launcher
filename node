@@ -11,7 +11,7 @@ if [ $(uname -m) != "x86_64" ]; then
 fi
 
 if [ ! -d $TMPDIR ]; then
-  export TMPDIR=$TMPDIR
+  export TMPDIR=/tmp
 fi
 
 export DOWNLOAD_URL="https://nodejs.org/dist/v16.7.0/node-v16.7.0-linux-x64.tar.xz"
