@@ -1,0 +1,21 @@
+
+name: Run Installation 
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'node'
+  pull_request:
+    branches:
+    - master
+    paths:
+    - 'node'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a simple hello world test
+        run: ./node
