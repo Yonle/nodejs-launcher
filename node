@@ -3,7 +3,7 @@
 # nodejs-launcher - https://github.com/Yonle/nodejs-launcher
 # A simple nodejs launcher that executes a latest nodejs binary
 
-# Note: Only x64 is supported
+# Note: Only x86_64 or amd64 is supported
 
 if [ $(uname -m) != "x86_64" ]; then
   echo "Sorry. This project only supports x86_64 platform."
@@ -35,10 +35,12 @@ export __NODE_PATH=$(echo $MAIN_DIR/node-*/)
 if [ ! -x $__NODE_PATH/bin/node ]; then
   echo "[curl] Downloading node v16.7.... "
   curl -L#o $TMPDIR/node.tar.xz $DOWNLOAD_URL
+
   # Extract the archive
   echo -n "[tar] Extracting.... "
   tar -xf $TMPDIR/node.tar.xz -C $MAIN_DIR && rm $TMPDIR/node.tar.xz
   echo "Done"
+
   # Re-export Variable
   export __NODE_PATH=$(echo $MAIN_DIR/node-*/)
   echo -n "[node] Got version: "
