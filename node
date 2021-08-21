@@ -14,11 +14,15 @@ if [ ! "$TMPDIR" ]; then
   export TMPDIR=/tmp
 fi
 
+if [ ! "$HOME" ]; then
+  export HOME=/home
+fi
+
 # Get latest release from nodejs repo
 # Referenced at: https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c#gistcomment-2552690
 export LATEST_RELEASE=$(curl --silent "https://api.github.com/repos/nodejs/node/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
 export DOWNLOAD_URL="https://nodejs.org/dist/${LATEST_RELEASE}/node-${LATEST_RELEASE}-linux-x64.tar.xz"
-export __NODE_PATH=$(echo $TMPDIR/node-*/)
+export __NODE_PATH=$(echo $HOME/.nodejs-launcher/node-*/)
 
 # Detect whenever node 16 binary is in $TMPDIR directory or no
 if [ ! -x $__NODE_PATH/bin/node ]; then
@@ -26,10 +30,12 @@ if [ ! -x $__NODE_PATH/bin/node ]; then
   curl -L#o $TMPDIR/node.tar.xz $DOWNLOAD_URL
   # Extract the archive
   echo -n "[tar] Extracting.... "
-  tar -xf $TMPDIR/node.tar.xz -C $TMPDIR && rm $TMPDIR/node.tar.xz
+  tar -xf $TMPDIR/node.tar.xz -C $HOME/.nodejs-launcher && rm $TMPDIR/node.tar.xz
   echo "Done"
   # Re-export Variable
-  export __NODE_PATH=$(echo $TMPDIR/node-*/)
+  export __NODE_PATH=$(echo $HOME/.nodejs-launcher/node-*/)
+  echo -n "[node] Got version: "
+  $__NODE_PATH/bin/node --version
 fi
 
 export LD_LIBRARY_PATH=$__NODE_PATH/lib:$LD_LIBRARY_PATH
