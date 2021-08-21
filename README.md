@@ -18,6 +18,14 @@ chmod +x node
 
 # See help
 ./node --help
+
+# Run from file
+./node Hello-world.js
+
+# Eval
+./node -e "console.log('Hello World')"
+
+# And more....
 ```
 
 ## Community
