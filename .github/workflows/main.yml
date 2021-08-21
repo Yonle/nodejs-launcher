@@ -18,4 +18,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Hello World
-        run: ./node -e "console.log("Hello World");"
+        run: ./node -e "console.log('Hello World');"
