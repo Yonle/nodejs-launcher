@@ -6,7 +6,7 @@
 # Note: Only x86_64 or amd64 is supported
 
 if [ $(uname -m) != "x86_64" ]; then
-  echo "Sorry. This project only supports x86_64 platform."
+  echo "Sorry. This scripts only supports x86_64 or amd64 platform."
   exit 6
 fi
 
