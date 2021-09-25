@@ -20,7 +20,7 @@ on:
 
 jobs:
   Runs:
-    runs-on: debian-latest
+    runs-on: debian
     strategy:
       matrix:
         target_arch: [x86_64, armv7l, aarch64]
