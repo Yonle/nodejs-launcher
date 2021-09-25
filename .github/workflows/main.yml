@@ -19,8 +19,11 @@ on:
     - '.github/workflows/main.yml'
 
 jobs:
-  Main:
+  RunTest:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target_arch: [x86_64, armv7l, aarch64]
     steps:
       - uses: actions/checkout@v2
       - name: NodeJS
