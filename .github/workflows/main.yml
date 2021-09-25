@@ -1,21 +1,27 @@
 
-name: Run Installation 
+name: Run Installation & Tests
 on:
   push:
     branches:
     - master
     paths:
     - 'node'
+    - 'launch'
+    - 'npm'
   pull_request:
     branches:
     - master
     paths:
     - 'node'
+    - 'npm'
+    - 'launch'
 
 jobs:
   Main:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Hello World
+      - name: NodeJS
         run: ./node Hello-world.js
+      - name: npm with better-sqlite3 installation test
+        run: ./npm install better-sqlite3
