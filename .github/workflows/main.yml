@@ -8,6 +8,7 @@ on:
     - 'node'
     - 'launch'
     - 'npm'
+    - '.github/workflows/main.yml'
   pull_request:
     branches:
     - master
@@ -15,6 +16,7 @@ on:
     - 'node'
     - 'npm'
     - 'launch'
+    - '.github/workflows/main.yml'
 
 jobs:
   Main:
