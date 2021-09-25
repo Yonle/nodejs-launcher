@@ -10,46 +10,31 @@ if [ $(uname -m) != "x86_64" ]; then
   exit 6
 fi
 
-if [ ! "$TMPDIR" ]; then
-  export TMPDIR=/tmp
-fi
-
-if [ ! "$HOME" ]; then
-  export HOME=/home
-fi
-
-export MAIN_DIR=$HOME/.nodejs-launcher
+export MAIN_DIR=${TMPDIR:-/tmp}/.nodejs-launcher
 
 # Create main directory if there's none
-if [ ! -d $MAIN_DIR ]; then
-  mkdir $MAIN_DIR
-fi
+[ ! -d $MAIN_DIR ] && mkdir $MAIN_DIR
 
 # Get latest release from nodejs repo
-# Referenced at: https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c#gistcomment-2552690
-export LATEST_RELEASE=$(curl --silent "https://api.github.com/repos/nodejs/node/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
+# Reference: https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c#gistcomment-2552690
+export LATEST_RELEASE=$(curl -s "https://api.github.com/repos/nodejs/node/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
 export DOWNLOAD_URL="https://nodejs.org/dist/${LATEST_RELEASE}/node-${LATEST_RELEASE}-linux-x64.tar.xz"
 export __NODE_PATH=$(echo $MAIN_DIR/node-*/)
 
-# Detect whenever node 16 binary is in $TMPDIR directory or no
+# Detect whenever node 16 binary is in ${TMPDIR:-/tmp} directory or no
 if [ ! -x $__NODE_PATH/bin/node ]; then
-  echo "[curl] Downloading node v16.7.... "
-  curl -L#o $TMPDIR/node.tar.xz $DOWNLOAD_URL
-
-  # Extract the archive
-  echo -n "[tar] Extracting.... "
-  tar -xf $TMPDIR/node.tar.xz -C $MAIN_DIR && rm $TMPDIR/node.tar.xz
-  echo "Done"
+  echo -n "[curl] Extracting node $LATEST_RELEASE.... "
+  curl -sL $DOWNLOAD_URL | tar -Jxf - -C $MAIN_DIR
+  [ $? != 0 ] && echo "[fail] Failed to Installing node $LATEST_RELEASE. Nake sure you have a stable network connection and try again later." && exit 6
+  echo "Installed"
 
   # Re-export Variable
   export __NODE_PATH=$(echo $MAIN_DIR/node-*/)
-  echo -n "[node] Got version: "
-  $__NODE_PATH/bin/node --version
 fi
 
 # These variable is required in order to load binaries & library from different path.
 export LD_LIBRARY_PATH=$__NODE_PATH/lib:$LD_LIBRARY_PATH
-export PATH=$__NODE_PATH/bin:$PATH
+export PATH=$__NODE_PATH/bin:${PATH:-/usr/bin}
 
 # Run Node command
 node $@
