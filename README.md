@@ -8,7 +8,7 @@ A simple nodejs launcher that executes a latest nodejs binary
 * GCloud Shell (https://shell.cloud.google.com)
 
 ## Requirement
-* x86_64 linux system/container
+* A linux system/container
 * [libcurl](https://curl.se/libcurl) installed with `curl` binary
 
 ## Installing

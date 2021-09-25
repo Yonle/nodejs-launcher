@@ -3,17 +3,23 @@
 # nodejs-launcher - https://github.com/Yonle/nodejs-launcher
 # A simple nodejs launcher that executes a latest nodejs binary
 
-# Note: Only x86_64 or amd64 is supported
-
-if [ $(uname -m) != "x86_64" ]; then
-  echo "Sorry. This scripts only supports x86_64 or amd64 platform."
-  exit 6
-fi
-
+[ $(uname) = "Windows" ] && echo "Windows Support is not available for this script" && exit 6
 export MAIN_DIR=${TMPDIR:-/tmp}/.nodejs-launcher
 
 # Create main directory if there's none
 [ ! -d $MAIN_DIR ] && mkdir $MAIN_DIR
+
+# Detect architecture
+case $(uname -m) in
+armv7l) ARCH=armv7l ;;
+aarch64) ARCH=arm64 ;;
+x86_64 | amd64) ARCH=x64 ;;
+*) echo -e "Unsupported arcitecture:$(uname -m)\nNote: This script doesn't fetch a build from unofficial ones." && exit 6 ;;
+esac
+
+# If it's using android, Abort.
+# Android is using Bionic libc which has a lot of limitation.
+[ "$(uname -o)" = "Android" ] && echo -e "Using nodejs-launcher in Android/Termux is NOT supported.\nAndroid is using Bionic Libc to work. Same thing as what Termux does. Most of termux package (Including NodeJS) is build with Bionic Libc so they'll work natively.\n\nBecause the prebuild binary that nodejs website give mostly need glibc to work, You may try to use proot or chroot instead. Executing glibc binary won't work in Android (except prooted/chrooted environment).\n\nSo please, run \`pkg install nodejs -y\` instead." && exit 6
 
 # Get latest release from nodejs repo
 # Reference: https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c#gistcomment-2552690
@@ -36,5 +42,4 @@ fi
 export LD_LIBRARY_PATH=$__NODE_PATH/lib:$LD_LIBRARY_PATH
 export PATH=$__NODE_PATH/bin:${PATH:-/usr/bin}
 
-# Run Node command
 node $@
