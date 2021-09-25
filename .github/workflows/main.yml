@@ -19,7 +19,7 @@ on:
     - '.github/workflows/main.yml'
 
 jobs:
-  RunTest:
+  Runs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
