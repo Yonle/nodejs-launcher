@@ -13,21 +13,15 @@ A simple nodejs launcher that executes a latest nodejs binary
 
 ## Installing
 ```sh
-curl -L#O https://raw.githubusercontent.com/Yonle/nodejs-launcher/master/node
-chmod +x node
+curl -L#O https://raw.githubusercontent.com/Yonle/nodejs-launcher/master/launcj
+chmod +x launch
 
-# See help
-./node --help
+# Load the script
+source launch
 
-# Run from file
-./node Hello-world.js
-
-# Eval
-./node -e "console.log('Hello World')"
-
-# And more....
+# Then run node, npm, or npx command
+node -v
 ```
-
 ## Community
 * Discord: https://discord.gg/9S3ZCDR
 * Unofficial Glitch Server by Glitch Community: https://discord.gg/6CWnE6W
