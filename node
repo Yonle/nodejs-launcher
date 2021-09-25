@@ -42,4 +42,4 @@ fi
 export LD_LIBRARY_PATH=$__NODE_PATH/lib:$LD_LIBRARY_PATH
 export PATH=$__NODE_PATH/bin:${PATH:-/usr/bin}
 
-node $@
+node "$@"
