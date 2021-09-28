@@ -13,7 +13,7 @@ A simple nodejs launcher that executes a latest nodejs binary
 
 ## Installing
 ```sh
-curl -L#O https://raw.githubusercontent.com/Yonle/nodejs-launcher/master/launcj
+curl -L#O https://raw.githubusercontent.com/Yonle/nodejs-launcher/master/launch
 chmod +x launch
 
 # Load the script
