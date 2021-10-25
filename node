@@ -24,7 +24,7 @@ esac
 # Get latest release from nodejs repo
 # Reference: https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c#gistcomment-2552690
 export LATEST_RELEASE=$(curl -s "https://api.github.com/repos/nodejs/node/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
-export DOWNLOAD_URL="https://nodejs.org/dist/${LATEST_RELEASE}/node-${LATEST_RELEASE}-linux-x64.tar.xz"
+export DOWNLOAD_URL="https://nodejs.org/dist/${LATEST_RELEASE}/node-${LATEST_RELEASE}-linux-$ARCH.tar.xz"
 export __NODE_PATH=$(echo $MAIN_DIR/node-*/)
 
 # Detect whenever node 16 binary is in ${TMPDIR:-/tmp} directory or no
